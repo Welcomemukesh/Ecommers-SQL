@@ -1,65 +1,62 @@
 # Ecommers-SQL
-CREATE DATABASE EcommerceDB;
-USE EcommerceDB;
+# 🛒 E-commerce Database Schema Design
 
-CREATE TABLE Customer (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE,
-    address TEXT
-);
+## 📌 Overview
 
-CREATE TABLE Category (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(100) NOT NULL
-);
+This project involves designing and implementing a relational database schema for a basic E-commerce platform. It includes SQL scripts for table creation and an ER (Entity-Relationship) diagram illustrating the relationships between entities.
 
-CREATE TABLE Product (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(100) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    category_id INT NOT NULL,
-    FOREIGN KEY (category_id)
-        REFERENCES Category(category_id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE
-);
+## 📁 Files Included
 
-CREATE TABLE CustomerOrder (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_date DATE NOT NULL,
-    status VARCHAR(50) NOT NULL,
-    FOREIGN KEY (customer_id)
-        REFERENCES Customer(customer_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
+- ecommerce_schema.sql – SQL script to create the database and tables
+- Ecommerce_ER_Diagram.pdf – ER Diagram of the schema
+- README.md – Project documentation
 
-CREATE TABLE OrderItem (
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (order_id, product_id),
-    FOREIGN KEY (order_id)
-        REFERENCES CustomerOrder(order_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (product_id)
-        REFERENCES Product(product_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
+## 🧱 Database Tables
 
-CREATE TABLE Payment (
-    payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    payment_date DATE NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
-    method VARCHAR(50) NOT NULL,
-    FOREIGN KEY (order_id)
-        REFERENCES CustomerOrder(order_id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
+1. *Customer*
+   - Stores customer details like name, email, and address.
+
+2. *Category*
+   - Represents product categories (e.g., electronics, fashion).
+
+3. *Product*
+   - Contains product information and links to categories.
+
+4. *Order*
+   - Records customer orders with order date and status.
+
+5. *OrderItem*
+   - Many-to-many relation between orders and products with quantity and price.
+
+6. *Payment*
+   - Stores payment details for each order.
+
+## 🔗 Relationships
+
+- One *customer* can place many *orders*.
+- One *order* can contain many *products* (via OrderItem).
+- One *product* belongs to one *category*.
+- Each *order* has exactly one *payment*.
+
+## 🧠 Key Concepts Covered
+
+- DDL (Data Definition Language)
+- Primary and Foreign Keys
+- Composite Keys
+- AUTO_INCREMENT usage
+- Database Normalization
+- ER Diagrams
+
+## 🛠 Tools Used
+
+- MySQL Workbench
+- SQL
+- GitHub
+- ER Diagram Generator
+
+## 🚀 How to Use
+
+1. Import ecommerce_schema.sql into MySQL.
+2. Use MySQL Workbench or any SQL tool to view the tables.
+3. Open Ecommerce_ER_Diagram.pdf to view the database design.
+
